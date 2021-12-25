@@ -21,7 +21,7 @@ contract NFTContract is ERC721Enumerable, Ownable {
       mint(msg.sender, 10);
     }
 
-    function mint(address _recipient, uint256 _amount) public {
+    function mint(address _recipient, uint8 _amount) public {
       require(!paused);
       require(_amount>0 && _amount<=maxMintAmount);
       uint256 supply = totalSupply();
@@ -30,7 +30,7 @@ contract NFTContract is ERC721Enumerable, Ownable {
         require(_isPresaleUser(msg.sender));
         require(balanceOf(msg.sender) + _amount <= presaleMintLimit);
       }
-      for (uint256 i = 1; i <= _amount; i++) {
+      for (uint8 i = 1; i <= _amount; i++) {
         _safeMint(_recipient, supply + i);
       }
     }

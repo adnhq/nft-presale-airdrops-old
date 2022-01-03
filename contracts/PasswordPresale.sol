@@ -10,7 +10,7 @@ contract PasswordPresale is ERC721Enumerable {
     address private _owner; 
     uint8 public maxMintAmount = 10;
     uint8 public presaleMintLimit = 5;
-    uint16 public maxSupply = 7777;
+    uint16 public constant maxSupply = 7777;
     bool public presaleActive = true;
     bool public paused = false;
     string private baseUri = "sample_base_uri/"; 

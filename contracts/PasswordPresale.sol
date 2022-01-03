@@ -2,21 +2,20 @@
 pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 
-contract PAWsitives is ERC721Enumerable {
+contract PasswordPresale is ERC721Enumerable {
     using Strings for uint256;
-    uint256 public cost = 0.05 ether; //CHANGE IF NECESSARY
+    uint256 public cost = 0.05 ether; 
     uint256 public reserve = 77;
-    bytes32 private _presaleHash = 0xb7845733ba102a68c6eb21c3cd2feafafd1130de581d7e73be60b76d775b6704; 
-    //Generate the hash of your presale password from https://emn178.github.io/online-tools/keccak_256.html and replace the sample hash. (PREPEND WITH 0x) 
-    address private _owner; //OWNER WILL BE THE ADDRESS WHICH DEPLOYS THE CONTRACT
+    bytes32 private _presaleHash = 0xb7845733ba102a68c6eb21c3cd2feafafd1130de581d7e73be60b76d775b6704; //Sample hash
+    address private _owner; 
     uint8 public maxMintAmount = 10;
     uint8 public presaleMintLimit = 5;
     uint16 public maxSupply = 7777;
     bool public presaleActive = true;
     bool public paused = false;
-    string private baseUri = "sample_base_uri/"; //CHANGE BEFORE DEPLOYMENT
+    string private baseUri = "sample_base_uri/"; 
 
-    constructor() ERC721("PAWsitive Cats", "PAW") {
+    constructor() ERC721("Demo Token", "DMO") {
       _owner = msg.sender;
     }
     modifier onlyOwner {
@@ -24,7 +23,6 @@ contract PAWsitives is ERC721Enumerable {
       _;
     } 
     function mint(address _recipient, uint256 _amount, string memory _password) external payable {
-      //If presale is over or if you are the owner then just send an empty string in place of the password
       require(!paused);
       require(_amount>0);
       if(msg.sender != _owner) require(msg.value >= cost * _amount);
@@ -76,7 +74,6 @@ contract PAWsitives is ERC721Enumerable {
       presaleActive = false;
     }
     function withdraw() external onlyOwner {
-      //Transfer the balance of this contract to the owner's address
       payable(_owner).transfer(address(this).balance);
     }
 }
